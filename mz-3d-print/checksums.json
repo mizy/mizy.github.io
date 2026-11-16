@@ -85,11 +85,6 @@
     "sha256": "62d417fc7a41b2ea244df0249a35aa34de85fcd0175150a3c665f3e0afeb54b3"
   },
   {
-    "path": "files/project-09/part-01.stl",
-    "bytes": 103884,
-    "sha256": "6016b1ae3abe7c86eeaecb4820322aee32430ed08312a7e7a09453d0074c91fd"
-  },
-  {
     "path": "files/project-10/part-01.step",
     "bytes": 715126,
     "sha256": "c3a15a682d7e618f0add05cbdbb17324cf98c2d6b49eb70bf61a0821d398551b"
