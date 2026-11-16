@@ -17,6 +17,6 @@ Preview with a static HTTP server. Test desktop and mobile, search, category fil
 
 The root page is semantic HTML: real headings, links, articles, search and filter controls. All content and navigation work without WebGPU. `assets/projects.js` contains verified public applications and source-only projects; do not invent a Pages route for a source project.
 
-The optional `assets/preview-gpu.js` lightly treats the existing privacy-safe 3D print preview image on pointer movement. It is explicitly an image treatment, not a live CAD/model viewer. It is not an abstract decorative sculpture. Rendering stops at rest and when hidden; DPR is capped at 1.5. Reduced-motion preferences skip the effect. Unsupported browsers and device loss retain the original HTML image.
+Application cards use verified screenshots captured from their public interfaces in clean browser contexts. The 3D printing card uses a privacy-safe model preview. All cards have equal layout prominence and standard HTML links. No decorative 3D or GPU effects are used where they do not help identify the project.
 
 Historical descriptions were checked against the public mizy profile README history and project READMEs. The original MiniGL/DragonBones introduction is preserved in natural Chinese; no profile statistics, private project names or personal identity details are imported.
