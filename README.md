@@ -5,7 +5,7 @@ Static GitHub Pages project directory. The homepage is a project launcher, not a
 ## Maintain the directory
 
 - Add or update apps in `assets/projects.js`. Keep each destination verified and public.
-- `PROJECTS` contains ready-to-open apps and creative collections. `ARCHIVE` contains earlier open-source experiments.
+- `PROJECTS` contains ready-to-open apps and creative collections. `SOURCE_PROJECTS` contains tools and earlier open-source projects, including source-only work.
 - Use a working Pages URL for an app. Link source-only projects to their actual repository, never an invented app route.
 - Keep visible page copy free of personal identity information. Do not import private repository content or history into this public homepage.
 - New apps can live at their own repository Pages URL. No homepage router or build step is needed.
@@ -13,12 +13,10 @@ Static GitHub Pages project directory. The homepage is a project launcher, not a
 
 Preview with a static HTTP server. Test desktop and mobile, search, category filters, empty/reset states and destination links before publishing.
 
-## Canvas homepage
+## DOM-first homepage
 
-The root page uses one visible canvas. `assets/space.js` renders real signed-distance 3D geometry using WebGPU and composites a Canvas 2D UI texture into the same output. Text, buttons, hit testing, selection and navigation are drawn/handled on the canvas. No visible HTML overlay is used.
+The root page is semantic HTML: real headings, links, articles, search and filter controls. All content and navigation work without WebGPU. `assets/projects.js` contains verified public applications and source-only projects; do not invent a Pages route for a source project.
 
-Controls: arrow keys or mobile horizontal swipe switch projects; Enter opens the selected project; A opens the archive; Escape returns; P pauses animation; Tab cycles controls and leaves the canvas at the end. Click the archive button for older projects.
+The optional `assets/preview-gpu.js` lightly treats the existing privacy-safe 3D print preview image on pointer movement. It is explicitly an image treatment, not a live CAD/model viewer. It is not an abstract decorative sculpture. Rendering stops at rest and when hidden; DPR is capped at 1.5. Reduced-motion preferences skip the effect. Unsupported browsers and device loss retain the original HTML image.
 
-WebGPU requires a supported browser and secure context (HTTPS or localhost). A visibly labeled Canvas 2D compatibility renderer preserves all navigation if WebGPU is unavailable or the device is lost. `?compat` explicitly tests this path. The compatibility renderer is not represented as 3D/WebGPU.
-
-Performance: max 30 render submissions per second, DPR capped at 1.5, no rendering in hidden tabs, and no repeated submissions when paused. Honors reduced motion. No analytics, external fonts, remote artwork or personal identity data are loaded by the homepage.
+Historical descriptions were checked against the public mizy profile README history and project READMEs. The original MiniGL/DragonBones introduction is preserved in natural Chinese; no profile statistics, private project names or personal identity details are imported.

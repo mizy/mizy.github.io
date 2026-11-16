@@ -1,0 +1,11 @@
+'use strict';
+const appDescriptions={
+'mz-3d-viewer':'在浏览器里查看本地 3D 文件，支持 STL、OBJ、glTF、3MF 和 STEP。可以拆解装配、查看剖面，文件不需要上传。',
+'pillbox':'记录用药、管理药品库存，整理配药清单和日历提醒。数据保存在本机。',
+'mz-guitar-tabs-collect':'按歌手、歌名、演奏方式和标签找谱，支持全屏查看与翻页。',
+'badminton-web':'浏览器里的 3D 羽毛球单打游戏。可以人机训练或比赛，支持触屏、键盘和手柄。'};
+const apps=PROJECTS.filter(p=>p.url!=='/mz-3d-print/'),appGrid=document.querySelector('#app-grid'),sourceList=document.querySelector('#source-list');
+for(const p of apps){const repo=p.url.split('/')[1],a=document.createElement('article');a.className='app';a.dataset.search=`${p.name} ${appDescriptions[repo]}`;a.innerHTML=`<span class="badge">${p.category} · 在线应用</span><h3>${p.name}</h3><p>${appDescriptions[repo]}</p><div class="links"><a href="${p.url}">打开应用 ↗</a><a class="secondary" href="https://github.com/mizy/${repo}">查看源码</a></div>`;appGrid.append(a)}
+for(const p of SOURCE_PROJECTS){const a=document.createElement('article');a.className='source-item';a.dataset.search=`${p.name} ${p.group} ${p.description}`;a.innerHTML=`<span class="badge">${p.group}${p.demo?' · 有演示':' · 源码项目'}</span><h3>${p.name}</h3><p>${p.description}</p><div class="links"><a href="https://github.com/mizy/${p.repo}">查看源码 ↗</a>${p.demo?`<a class="secondary" href="${p.demo}">打开演示</a>`:''}${p.extra?`<a class="secondary" href="${p.extra.url}">${p.extra.label}</a>`:''}</div>`;sourceList.append(a)}
+let filter='all';const search=document.querySelector('#search');function apply(){let count=0;for(const [id,cls]of[['apps','.app'],['source','.source-item']]){let n=0;document.querySelectorAll(cls).forEach(a=>{a.hidden=!(filter==='all'||filter===id)||!a.dataset.search.toLowerCase().includes(search.value.trim().toLowerCase());if(!a.hidden)n++});document.getElementById(id).hidden=n===0;count+=n}document.getElementById('empty').hidden=count>0;document.getElementById('results').textContent=`找到 ${count} 个项目`}
+search.addEventListener('input',apply);document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));apply()}));apply();
