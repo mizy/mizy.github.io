@@ -1,5 +1,6 @@
 // Only list public projects with verified destinations. Add new apps here.
 window.PROJECTS = [
+ {name:'SimSketch',category:'工具',description:'在画布上为仿真图片添加约束、载荷和文字，支持图层与本地保存。',url:'/sim-sketch/',kind:'WEB APP',icon:'layers',color:'#303864',ink:'#c7cdf8'},
  {name:'3D 查看器',category:'工具',description:'在浏览器里查看本地 3D 文件，支持 STL、OBJ、glTF、3MF 与 STEP。',url:'/mz-3d-viewer/',kind:'WEB APP',icon:'cube',color:'#27352e',ink:'#bed6ad'},
  {name:'3D 打印',category:'创作',description:'从设计到实物，整理正在制作的模型与打印项目。',url:'/mz-3d-print/',kind:'COLLECTION',icon:'layers',color:'#353027',ink:'#d8c7a8'},
  {name:'小药仓',category:'工具',description:'用药记录与药品库存管理，把日常信息整理在一处。',url:'/pillbox/',kind:'WEB APP',icon:'pill',color:'#2f303b',ink:'#bdbbd9'},
