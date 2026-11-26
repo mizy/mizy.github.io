@@ -20,3 +20,21 @@ The root page is semantic HTML: real headings, links, articles, search and filte
 Application cards use verified screenshots captured from their public interfaces in clean browser contexts. The 3D printing card uses a privacy-safe model preview. All cards have equal layout prominence and standard HTML links. No decorative 3D or GPU effects are used where they do not help identify the project.
 
 Historical descriptions were checked against the public mizy profile README history and project READMEs. The original MiniGL/DragonBones introduction is preserved in natural Chinese; no profile statistics, private project names or personal identity details are imported.
+
+## PWA / 离线
+
+站点可安装为 PWA，入口在根目录：
+
+- `manifest.json`：应用名、图标（`assets/icons/`）、启动路径 `/`、`display: standalone`
+- `sw.js`：Service Worker，作用域 `/`。预缓存项目目录页、3D 打印档案页、离线页和 12 张模型预览
+- `offline.html`：没有网络且页面未缓存时的兜底页
+- `assets/pwa.js`：在根页和 `mz-3d-print/` 下注册 Service Worker
+
+缓存规则：
+
+- 导航请求：先走网络，成功就写入缓存；断网时回落到缓存，再回落到 `offline.html`
+- 模型预览图：缓存优先
+- 页面 CSS / JS / manifest：先用缓存，同时后台更新
+- `.3mf` / `.stl` / `.step` 下载文件与跨域请求不经过 Service Worker，始终走网络
+
+改动上述预缓存列表或离线页后，必须把 `sw.js` 里的 `CACHE_VERSION` 加一，旧缓存会在下次激活时清掉。
