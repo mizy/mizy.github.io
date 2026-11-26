@@ -1,7 +1,7 @@
 'use strict';
 
 // Cache version. Bump this string whenever shell files or the offline page change.
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const SHELL_CACHE = `mizy-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `mizy-runtime-${CACHE_VERSION}`;
 
@@ -17,33 +17,7 @@ const SHELL_URLS = [
   '/assets/pwa.js',
   '/assets/icons/icon-192.png',
   '/assets/icons/icon-512.png',
-  '/mz-3d-print/',
-  '/mz-3d-print/index.html',
-  '/mz-3d-print/style.css',
-  '/mz-3d-print/page.js',
-  '/mz-3d-print/assets.html',
-  '/mz-3d-print/assets-page.js'
-];
-
-// Model previews are small enough to preload; a missing preview must not break install.
-const PREVIEW_URLS = [
-  '/mz-3d-print/previews/project-01.webp',
-  '/mz-3d-print/previews/project-02.webp',
-  '/mz-3d-print/previews/project-03-overall.webp',
-  '/mz-3d-print/previews/project-03-parts.webp',
-  '/mz-3d-print/previews/project-04.webp',
-  '/mz-3d-print/previews/project-05.webp',
-  '/mz-3d-print/previews/project-06.webp',
-  '/mz-3d-print/previews/project-07.webp',
-  '/mz-3d-print/previews/project-08-photo.png',
-  '/mz-3d-print/previews/project-08-overall.webp',
-  '/mz-3d-print/previews/project-08-parts.webp',
-  '/mz-3d-print/previews/project-10.webp',
-  '/mz-3d-print/previews/project-11.webp',
-  '/mz-3d-print/previews/project-12.webp',
-  '/mz-3d-print/previews/project-13.webp',
-  '/mz-3d-print/previews/project-14.webp',
-  '/mz-3d-print/previews/project-15.webp'
+  '/assets/thumbnails/mz-3d-print.webp'
 ];
 
 const DOWNLOAD_EXTENSIONS = ['.3mf', '.stl', '.step', '.stp'];
@@ -68,10 +42,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(handleNavigation(request));
     return;
   }
-  if (url.pathname.startsWith('/mz-3d-print/previews/')) {
-    event.respondWith(cacheFirst(request, RUNTIME_CACHE));
-    return;
-  }
+
   if (isShellAsset(url.pathname)) {
     event.respondWith(staleWhileRevalidate(request, RUNTIME_CACHE));
   }
@@ -80,13 +51,6 @@ self.addEventListener('fetch', (event) => {
 async function precache() {
   const cache = await caches.open(SHELL_CACHE);
   await cache.addAll(SHELL_URLS);
-  for (const url of PREVIEW_URLS) {
-    try {
-      await cache.add(url);
-    } catch (error) {
-      console.warn('[sw] preview not cached', url, error);
-    }
-  }
   await self.skipWaiting();
 }
 
@@ -150,10 +114,5 @@ function isDownload(pathname) {
 
 function isShellAsset(pathname) {
   if (pathname.startsWith('/assets/')) return true;
-  if (pathname === '/manifest.json') return true;
-  return (
-    pathname === '/mz-3d-print/style.css' ||
-    pathname === '/mz-3d-print/page.js' ||
-    pathname === '/mz-3d-print/assets-page.js'
-  );
+  return pathname === '/manifest.json';
 }

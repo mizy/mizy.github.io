@@ -33,7 +33,7 @@ jobs:
       - name: Stage public files
         run: |
           mkdir _site
-          cp -R index.html manifest.json sw.js offline.html assets mz-3d-print _site/
+          cp -R index.html manifest.json sw.js offline.html assets _site/
 
       - uses: actions/configure-pages@v5
 

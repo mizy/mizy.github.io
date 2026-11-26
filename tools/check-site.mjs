@@ -1,69 +1,42 @@
-// 发布前自检：校验和、页面链接、图标、Service Worker 预缓存清单是否与磁盘一致。
+// 发布前自检：首页本地引用、应用缩略图、manifest 图标、Service Worker 预缓存清单是否与磁盘一致。
 // 用法：node tools/check-site.mjs
 // 任何一项不一致都以非零码退出，让 CI 直接拦下这次发布。
 
-import { createHash } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const PRINT = path.join(ROOT, 'mz-3d-print');
 const problems = [];
 const fail = (message) => problems.push(message);
 
 const readJson = (file) => JSON.parse(fs.readFileSync(file, 'utf8'));
-const sha256 = (file) => createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const exists = (relative) => fs.existsSync(path.join(ROOT, relative));
 
-function checkChecksums() {
-  const entries = readJson(path.join(PRINT, 'checksums.json'));
-  const onDisk = [];
-  const walk = (dir) => {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) walk(full);
-      else if (entry.isFile()) onDisk.push(path.relative(PRINT, full));
-    }
-  };
-  walk(path.join(PRINT, 'files'));
-  onDisk.sort();
-  const listed = entries.map((entry) => entry.path).sort();
-  if (JSON.stringify(onDisk) !== JSON.stringify(listed)) {
-    fail(`checksums.json does not cover files/ exactly (disk ${onDisk.length}, listed ${listed.length})`);
+function checkHomepageLinks() {
+  const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+  const refs = new Set();
+  for (const match of html.matchAll(/(?:href|src)="([^"#?]+)"/g)) {
+    const ref = match[1];
+    // 根绝对路径指向其他仓库的 Pages（/sim-sketch/ 等），不属于本仓库发布产物。
+    if (/^[a-z]+:/i.test(ref) || ref.startsWith('//') || ref.startsWith('/')) continue;
+    refs.add(ref);
   }
-  for (const entry of entries) {
-    const full = path.join(PRINT, entry.path);
-    if (!fs.existsSync(full)) {
-      fail(`checksums.json lists a missing file: ${entry.path}`);
-      continue;
+  for (const ref of refs) {
+    const relative = ref.replace(/\/$/, '');
+    if (!exists(relative === '' ? 'index.html' : relative) && !exists(path.join(relative, 'index.html'))) {
+      fail(`index.html references a missing file: ${ref}`);
     }
-    const bytes = fs.readFileSync(full);
-    if (bytes.length !== entry.bytes) fail(`size mismatch: ${entry.path}`);
-    if (sha256(full) !== entry.sha256) fail(`sha256 mismatch: ${entry.path}`);
   }
 }
 
-function checkPrintPage() {
-  const html = fs.readFileSync(path.join(PRINT, 'index.html'), 'utf8');
-  const cards = html.match(/<article class="project"/g) ?? [];
-  if (cards.length === 0) fail('mz-3d-print/index.html has no project cards');
-
-  const downloads = [...html.matchAll(/<li><a href="(files\/[^"]+)" download>[^<]*<\/a><span class="size">([^<]+)<\/span><\/li>/g)];
-  if (downloads.length === 0) fail('index.html has no download entries');
-  for (const [, href, sizeText] of downloads) {
-    const full = path.join(PRINT, href);
-    if (!fs.existsSync(full)) {
-      fail(`download link points at a missing file: ${href}`);
-      continue;
-    }
-    const expected = `${(fs.statSync(full).size / 1048576).toFixed(2)} MB`;
-    if (sizeText !== expected) fail(`size text is stale for ${href}: page ${sizeText}, disk ${expected}`);
-  }
-
-  const previews = [...html.matchAll(/<(?:img src|a class="preview" href|button data-view-src)="(previews\/[^"]+)"/g)];
-  if (previews.length === 0) fail('index.html has no preview references');
-  for (const [, src] of previews) {
-    if (!fs.existsSync(path.join(PRINT, src))) fail(`preview missing: ${src}`);
+// home.js 用 assets/thumbnails/<repo>.webp 作为每个应用卡片的首图。
+function checkThumbnails() {
+  const source = fs.readFileSync(path.join(ROOT, 'assets/projects.js'), 'utf8');
+  const projects = source.slice(source.indexOf('window.PROJECTS'), source.indexOf('window.ARCHIVE'));
+  for (const match of projects.matchAll(/url:'\/([^/']+)\/'/g)) {
+    const thumb = `assets/thumbnails/${match[1]}.webp`;
+    if (!exists(thumb)) fail(`application card is missing its thumbnail: ${thumb}`);
   }
 }
 
@@ -77,8 +50,7 @@ function checkManifest() {
   if (!sizes.includes('512x512:any')) fail('manifest.json needs a 512x512 any icon');
   if (!manifest.icons.some((icon) => (icon.purpose ?? 'any').includes('maskable'))) fail('manifest.json needs a maskable icon');
   for (const icon of manifest.icons ?? []) {
-    const full = path.join(ROOT, icon.src.replace(/^\//, ''));
-    if (!fs.existsSync(full)) fail(`manifest icon missing: ${icon.src}`);
+    if (!exists(icon.src.replace(/^\//, ''))) fail(`manifest icon missing: ${icon.src}`);
   }
 }
 
@@ -88,17 +60,24 @@ function checkServiceWorker() {
   if (listed.length === 0) fail('sw.js has no precache URLs');
   for (const url of listed) {
     const relative = url === '/' ? 'index.html' : url.replace(/^\/+/, '');
-    const full = path.join(ROOT, relative);
-    if (!fs.existsSync(full) && !fs.existsSync(path.join(ROOT, relative, 'index.html'))) {
+    if (!exists(relative) && !exists(path.join(relative, 'index.html'))) {
       fail(`sw.js precaches a missing path: ${url}`);
     }
   }
 }
 
-checkChecksums();
-checkPrintPage();
+// 3D 打印档案由 mizy/mz-3d-print 仓库自己的 Pages 发布，本仓库不再保存副本。
+function checkPrintArchiveAbsent() {
+  if (exists('mz-3d-print/index.html')) {
+    fail('mz-3d-print/ must not live here; it is published from github.com/mizy/mz-3d-print');
+  }
+}
+
+checkHomepageLinks();
+checkThumbnails();
 checkManifest();
 checkServiceWorker();
+checkPrintArchiveAbsent();
 
 if (problems.length > 0) {
   console.error(problems.map((problem) => `FAIL ${problem}`).join('\n'));
