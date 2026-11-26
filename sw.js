@@ -1,7 +1,7 @@
 'use strict';
 
 // Cache version. Bump this string whenever shell files or the offline page change.
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const SHELL_CACHE = `mizy-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `mizy-runtime-${CACHE_VERSION}`;
 
@@ -38,7 +38,12 @@ const PREVIEW_URLS = [
   '/mz-3d-print/previews/project-08-photo.png',
   '/mz-3d-print/previews/project-08-overall.webp',
   '/mz-3d-print/previews/project-08-parts.webp',
-  '/mz-3d-print/previews/project-10.webp'
+  '/mz-3d-print/previews/project-10.webp',
+  '/mz-3d-print/previews/project-11.webp',
+  '/mz-3d-print/previews/project-12.webp',
+  '/mz-3d-print/previews/project-13.webp',
+  '/mz-3d-print/previews/project-14.webp',
+  '/mz-3d-print/previews/project-15.webp'
 ];
 
 const DOWNLOAD_EXTENSIONS = ['.3mf', '.stl', '.step', '.stp'];
