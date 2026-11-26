@@ -1,0 +1,217 @@
+{
+  "categories": ["日用", "收纳展示", "打印配件", "摆件手办", "浮雕", "印章标记"],
+  "projects": [
+    {
+      "dir": "project-01",
+      "name": "狗碗 · LV",
+      "category": "日用",
+      "kinds": "STEP / 3MF",
+      "description": "两排花纹与独立装饰件",
+      "previews": [{ "out": "previews/project-01.webp", "label": "整体渲染" }],
+      "files": [
+        { "out": "files/project-01/part-01.step", "source": "models/dog-bowl-lv/Models/LV_bowl_and_logo.step", "label": "碗与独立装饰 · STEP" },
+        { "out": "files/project-01/part-02.3mf", "source": "models/dog-bowl-lv/Models/Bowl.3mf", "label": "用户打印工程 · 3MF" }
+      ]
+    },
+    {
+      "dir": "project-02",
+      "name": "狗碗 · Chanel",
+      "category": "日用",
+      "kinds": "STEP",
+      "description": "绗缝表面与倒 T 接口",
+      "previews": [{ "out": "previews/project-02.webp", "label": "整体渲染" }],
+      "files": [
+        { "out": "files/project-02/part-01.step", "source": "models/dog-bowl-chanel/Models/Chanel_assembly.step", "label": "完整总装 · STEP" },
+        { "out": "files/project-02/part-02.step", "source": "models/dog-bowl-chanel/Models/Chanel_CC_print_flat.step", "label": "独立装饰 · STEP" },
+        { "out": "files/project-02/part-03.step", "source": "models/dog-bowl-chanel/Models/Chanel_clip_fit_test.step", "label": "卡扣试配 · STEP" }
+      ]
+    },
+    {
+      "dir": "project-03",
+      "name": "内存条与 CPU 展示架",
+      "category": "收纳展示",
+      "kinds": "3MF",
+      "description": "模块化底板、托盘与接口",
+      "previews": [
+        { "out": "previews/project-03-overall.webp", "label": "整体渲染", "short": "整体" },
+        { "out": "previews/project-03-parts.webp", "label": "分件渲染", "short": "分件" }
+      ],
+      "files": [
+        { "out": "files/project-03/part-01.3mf", "source": "models/idea-003-memory-cpu-rack/v17-skadis/print-plates/01_board.3mf", "label": "底板 · 3MF" },
+        { "out": "files/project-03/part-02.3mf", "source": "models/idea-003-memory-cpu-rack/v17-skadis/print-plates/02_relief_feet_trays-hookfix.3mf", "label": "浮雕、底脚与托盘 · 3MF" },
+        { "out": "files/project-03/part-03.3mf", "source": "models/idea-003-memory-cpu-rack/v17-skadis/print-plates/00_fit_test-hookfix.3mf", "label": "接口试配 · 3MF" }
+      ]
+    },
+    {
+      "dir": "project-04",
+      "name": "山水透光浮雕试片",
+      "category": "浮雕",
+      "kinds": "3MF",
+      "description": "以厚度变化呈现山水层次",
+      "previews": [{ "out": "previews/project-04.webp", "label": "整体渲染" }],
+      "files": [
+        { "out": "files/project-04/part-01.3mf", "source": "models/idea-004-lithophane-fuchun/lithophane-fuchun-river.3mf", "label": "透光试片 · 3MF" }
+      ]
+    },
+    {
+      "dir": "project-05",
+      "name": "人物实体浮雕试片",
+      "category": "浮雕",
+      "kinds": "3MF",
+      "description": "两个尺寸的实体浮雕",
+      "previews": [{ "out": "previews/project-05.webp", "label": "整体渲染" }],
+      "files": [
+        { "out": "files/project-05/part-01.3mf", "source": "models/idea-005-anime-relief/relief-anime-girl-s105.3mf", "label": "105 尺寸试片 · 3MF" },
+        { "out": "files/project-05/part-02.3mf", "source": "models/idea-005-anime-relief/relief-anime-girl-s200.3mf", "label": "200 尺寸试片 · 3MF" }
+      ]
+    },
+    {
+      "dir": "project-06",
+      "name": "图案印章",
+      "category": "印章标记",
+      "kinds": "3MF",
+      "description": "印面与手柄分开制作",
+      "previews": [{ "out": "previews/project-06.webp", "label": "手柄预览" }],
+      "files": [
+        { "out": "files/project-06/part-01.3mf", "source": "models/idea-008-miao-watermark/miao-stamp.3mf", "label": "印章 · 3MF" },
+        { "out": "files/project-06/part-02.3mf", "source": "models/idea-008-miao-watermark/stamp-handle.3mf", "label": "手柄 · 3MF" }
+      ]
+    },
+    {
+      "dir": "project-07",
+      "name": "圆形吊牌",
+      "category": "日用",
+      "kinds": "3MF / STL",
+      "description": "双件工程与单件几何",
+      "previews": [{ "out": "previews/project-07.webp", "label": "整体渲染" }],
+      "files": [
+        { "out": "files/project-07/part-01.3mf", "source": "models/kaka-tag-circle/kaka-two-tags.3mf", "label": "双吊牌 · 3MF" },
+        { "out": "files/project-07/part-02.stl", "source": "models/kaka-tag-circle/kaka-circle.stl", "label": "单件几何 · STL" }
+      ]
+    },
+    {
+      "dir": "project-08",
+      "name": "云朵洞洞板托架",
+      "category": "收纳展示",
+      "kinds": "3MF",
+      "description": "洞洞板上的轻量托架",
+      "previews": [
+        { "out": "previews/project-08-photo.png", "label": "实物照片", "short": "实物" },
+        { "out": "previews/project-08-overall.webp", "label": "整体渲染", "short": "整体" },
+        { "out": "previews/project-08-parts.webp", "label": "分件渲染", "short": "分件" }
+      ],
+      "files": [
+        { "out": "files/project-08/part-01.3mf", "source": "models/idea-028-cloud-shelf-skadis/3mf/cloud-shelf-skadis-4plates.3mf", "label": "四盘工程 · 3MF" },
+        { "out": "files/project-08/part-02.3mf", "source": "models/idea-028-cloud-shelf-skadis/3mf/cloud-shelf-all-10pcs.3mf", "label": "十件组合 · 3MF" }
+      ]
+    },
+    {
+      "dir": "project-10",
+      "name": "装饰标记与底座",
+      "category": "印章标记",
+      "kinds": "STEP / STL",
+      "description": "印章、铭牌与展示底座",
+      "previews": [{ "out": "previews/project-10.webp", "label": "背面视角" }],
+      "files": [
+        { "out": "files/project-10/part-01.step", "source": "models/mark-miaozhuang-three-variants/01_Intaglio_Stamp.step", "label": "凹刻印章 · STEP" },
+        { "out": "files/project-10/part-02.step", "source": "models/mark-miaozhuang-three-variants/02_Raised_Logo_Plaque.step", "label": "凸起铭牌 · STEP" },
+        { "out": "files/project-10/part-03.step", "source": "models/mark-miaozhuang-three-variants/03_Figurine_Display_Base.step", "label": "展示底座 · STEP" },
+        { "out": "files/project-10/part-04.stl", "source": "models/mark-miaozhuang-three-variants/01_Intaglio_Stamp.stl", "label": "凹刻印章 · STL" },
+        { "out": "files/project-10/part-05.stl", "source": "models/mark-miaozhuang-three-variants/02_Raised_Logo_Plaque.stl", "label": "凸起铭牌 · STL" },
+        { "out": "files/project-10/part-06.stl", "source": "models/mark-miaozhuang-three-variants/03_Figurine_Display_Base.stl", "label": "展示底座 · STL" }
+      ]
+    },
+    {
+      "dir": "project-11",
+      "name": "模块化抽屉",
+      "category": "收纳展示",
+      "kinds": "3MF / STEP",
+      "description": "双列双层可扩展，单格排盘与闭壁总装",
+      "previews": [
+        {
+          "out": "previews/project-11.webp",
+          "source": "models/modular-drawer/V18_Single_Head_T_Rod_Drawer/Styles/Models/Comparison_CN.png",
+          "label": "外观对比"
+        }
+      ],
+      "files": [
+        { "out": "files/project-11/part-01.3mf", "source": "models/modular-drawer/V18_Single_Head_T_Rod_Drawer/Print/V18_H100_Single_Module_P1S_PETG_UNSLICED.3mf", "label": "单格排盘 · 3MF（未切片）" },
+        { "out": "files/project-11/part-02.3mf", "source": "models/modular-drawer/V18_Single_Head_T_Rod_Drawer/Print/V18_H100_Drawer_single_P1S_PETG.3mf", "label": "平底抽屉 · 3MF" },
+        { "out": "files/project-11/part-03.3mf", "source": "models/modular-drawer/V18_Single_Head_T_Rod_Drawer/Print/V18_H100_Drawer_windowed_P1S_PETG.3mf", "label": "开窗抽屉 · 3MF" },
+        { "out": "files/project-11/part-04.step", "source": "models/modular-drawer/V18_Single_Head_T_Rod_Drawer/Reference/V18_H100_2x2_Universal_Closed.step", "label": "双列双层闭壁 · STEP" }
+      ]
+    },
+    {
+      "dir": "project-12",
+      "name": "打印工作站收纳",
+      "category": "收纳展示",
+      "kinds": "STEP",
+      "description": "238 × 127 mm 底座与六个可换模块",
+      "previews": [
+        { "out": "previews/project-12.webp", "source": "models/workstation-modular/preview.png", "label": "组装视图" }
+      ],
+      "files": [
+        { "out": "files/project-12/part-01.step", "source": "models/workstation-modular/Models/01_base.step", "label": "底座 · STEP" },
+        { "out": "files/project-12/part-02.step", "source": "models/workstation-modular/Models/02_small_parts.step", "label": "小件收纳 · STEP" },
+        { "out": "files/project-12/part-03.step", "source": "models/workstation-modular/Models/03_nozzle_pockets.step", "label": "喷嘴存放 · STEP" },
+        { "out": "files/project-12/part-04.step", "source": "models/workstation-modular/Models/04_open_tray.step", "label": "开放托盘 · STEP" },
+        { "out": "files/project-12/part-05.step", "source": "models/workstation-modular/Models/05_tool_cup.step", "label": "工具筒 · STEP" },
+        { "out": "files/project-12/part-06.step", "source": "models/workstation-modular/Models/06_glue_cup.step", "label": "胶水杯座 · STEP" },
+        { "out": "files/project-12/part-07.step", "source": "models/workstation-modular/Models/07_precision_tools.step", "label": "精密工具位 · STEP" }
+      ]
+    },
+    {
+      "dir": "project-13",
+      "name": "料盘 · LV 拱窗",
+      "category": "打印配件",
+      "kinds": "STEP",
+      "description": "宽窄两半，原生 BRep 错位开放拱窗",
+      "previews": [
+        {
+          "out": "previews/project-13.webp",
+          "source": "models/filament-spool-lv/Models/StaggeredThickWall/LV_OPEN_ARCH_CUTAWAY.png",
+          "label": "剖切视图"
+        }
+      ],
+      "files": [
+        { "out": "files/project-13/part-01.step", "source": "models/filament-spool-lv/Models/StaggeredThickWall/LV_OPEN_ARCH_A_wide.step", "label": "宽半 · STEP" },
+        { "out": "files/project-13/part-02.step", "source": "models/filament-spool-lv/Models/StaggeredThickWall/LV_OPEN_ARCH_A_narrow.step", "label": "窄半 · STEP" }
+      ]
+    },
+    {
+      "dir": "project-14",
+      "name": "料盘 · Chanel 盘面",
+      "category": "打印配件",
+      "kinds": "STEP",
+      "description": "加厚连通盘面，宽窄两半",
+      "previews": [
+        {
+          "out": "previews/project-14.webp",
+          "source": "models/filament-spool-chanel/Design/selfsupport_roof_preview.png",
+          "label": "盘面渲染"
+        }
+      ],
+      "files": [
+        { "out": "files/project-14/part-01.step", "source": "models/filament-spool-chanel/Models/ChanelLight/CHANEL_REINFORCED_CONNECTED_SELF_SUPPORT_A_wide.step", "label": "宽半 · STEP" },
+        { "out": "files/project-14/part-02.step", "source": "models/filament-spool-chanel/Models/ChanelLight/CHANEL_REINFORCED_CONNECTED_SELF_SUPPORT_A_narrow.step", "label": "窄半 · STEP" }
+      ]
+    },
+    {
+      "dir": "project-15",
+      "name": "豆包 Q 版手办",
+      "category": "摆件手办",
+      "kinds": "3MF",
+      "description": "约 100 mm，九件七色盘",
+      "previews": [
+        {
+          "out": "previews/project-15.webp",
+          "source": "models/doubao-figure/Multipart100mm_ScarfV5/Doubao_V5_Plate_Contents.png",
+          "label": "盘内分件"
+        }
+      ],
+      "files": [
+        { "out": "files/project-15/part-01.3mf", "source": "models/doubao-figure/Multipart100mm_ScarfV5/Doubao_V5_ScarfPartition_9Parts_7Colors_P1S.3mf", "label": "九件七色盘 · 3MF" }
+      ]
+    }
+  ]
+}
