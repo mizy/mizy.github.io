@@ -43,7 +43,8 @@ Historical descriptions were checked against the public mizy profile README hist
 
 - **推送即发布**：Pages 走 `main` 分支根目录，push 上去构建完成后线上就更新，不需要额外动作。
 - **每次推送先自检**：`.github/workflows/check-site.yml` 跑 `node tools/check-site.mjs`，校验和、下载链接、预览图、manifest 图标、Service Worker 预缓存清单任一项对不上就红叉。
-- **3D 打印档案每天自动同步**：`.github/workflows/sync-3d-print.yml` 每天 02:17（北京时间）从 `mizy/mz-3d-print` 拉最新 `main`（含 Git LFS），重新生成公开页面；有变化就提交并触发 Pages 构建，没变化什么都不做。也可以在 Actions 里手动 `workflow_dispatch`。
+- **3D 打印档案本机每天自动同步**：上游 `mizy/mz-3d-print` 是私有仓库，GitHub Actions 拿不到它，所以同步跑在本机 —— launchd 任务 `com.mizy.print-sync`（`~/Library/LaunchAgents/com.mizy.print-sync.plist`）每天 09:10 / 21:10 执行 `tools/sync-3d-print.sh`：拉上游、重新导出、自检、有变化就提交并推送。睡着的机器会在下次唤醒后补跑；日志在 `~/Library/Logs/mizy-print-sync.log`。上游有未提交的已跟踪改动时脚本会跳过，不发布半成品。
+- 想改成云端同步的话，给这个仓库加一个只读 `mz-3d-print` 的细粒度 token（存成 secret），再把同步脚本搬进 Actions 即可。
 
 ### 3D 打印档案是生成物
 
@@ -52,6 +53,8 @@ Historical descriptions were checked against the public mizy profile README hist
 - `tools/print-public.json`：公开哪些模型、公开叫什么名字、每个文件对应上游哪条路径 —— 这是唯一的人工决定点
 - `tools/print-page.html`：页面骨架，`{{FILTERS}}` / `{{CARDS}}` / `{{COUNT}}` 三个占位符
 - `tools/export-3d-print.mjs`：读清单 + 上游仓库，复制文件、转 webp 预览、重算校验和、写出页面
+- `tools/check-site.mjs`：发布前自检（校验和 / 下载链接 / 尺寸文字 / 预览图 / manifest 图标 / SW 预缓存清单）
+- `tools/sync-3d-print.sh`：本机每天定时同步上游并推送，launchd 调用
 
 本地重生成：
 
